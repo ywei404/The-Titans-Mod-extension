@@ -1,0 +1,10 @@
+{
+	"required": true,
+	"minVersion": "0.7",
+	"package": "net.mrbt0907.thetitans.mixin",
+	"refmap": "mixin.refmap.json",
+	"compatibilityLevel": "JAVA_8",
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

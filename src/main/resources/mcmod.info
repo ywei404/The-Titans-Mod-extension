@@ -1,16 +1,21 @@
-[
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "thetitans",
+    "name": "The Titans Mod",
+    "description": "A mod that adds gigantic titans to your world, along with a slew of other things.",
+    "version": "0.7.0-indev",
+    "mcversion": "1.12.2",
+    "url": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2583152",
+    "updateUrl": "",
+    "authorList": ["Mrbt0907"],
+    "credits": "Maintained by Mrbt0907. Created by Enderman_of_D00M.",
+    "logoFile": "",
+    "screenshots": [],
+    "parent": "",
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "useDependencyInformation": true
+  }]
 }
-]

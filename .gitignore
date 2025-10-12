@@ -24,3 +24,9 @@ run
 .classpath
 .project
 .settings/
+libs
+unused
+setup.bat
+gradlew.bat
+runClient.bat
+runServer.bat

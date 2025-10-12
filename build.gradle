@@ -4,11 +4,6 @@ buildscript
 	{
 		jcenter()
 		maven { url = "https://files.minecraftforge.net/maven" }
-		maven
-		{
-			name = 'sponge'
-			url = 'https://repo.spongepowered.org/repository/maven-public'
-		}
 	}
 	dependencies
 	{
@@ -34,6 +29,28 @@ minecraft {
 	clientRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
 	serverRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
 }
+
+task debugClient {
+    group = 'Minecraft'
+    description = 'Run Minecraft client with debugger attached. Used for VSCode'
+    doFirst
+	{
+		runClient.jvmArgs+= ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"]
+	}
+	finalizedBy 'runClient'
+}
+
+task debugServer {
+    group = 'Minecraft'
+    description = 'Run Minecraft server with debugger attached. Used for VSCode'
+    
+    doFirst
+	{
+		runServer.jvmArgs+= ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"]
+	}
+	finalizedBy 'runServer'
+}
+
 runClient.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
 runServer.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
 
@@ -44,11 +61,24 @@ repositories
 		name 'Progwml6'
 		url "http://dvs1.progwml6.com/files/maven"
 	}
+	
+		maven
+		{
+			name = 'sponge'
+			url = 'https://repo.spongepowered.org/repository/maven-public/'
+		}
 }
 
 dependencies
 {
     runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
+   compile ("org.spongepowered:mixin:${mixin_version}")
+   {
+       exclude module: "launchwrapper"
+       exclude module: "guava"
+       exclude module: "gson"
+       exclude module: "commons-io"
+   }
 }
 
 processResources
@@ -66,7 +96,7 @@ jar
 {
 	from {configurations.compileClasspath.filter {"mixin-${mixin_version}.jar" == it.name}.collect{it.isDirectory() ? it : zipTree(it)}}
 	{
-		exclude 'dummyThing', 'LICENSE.txt', 'module-info.class', 'META-INF/MANIFSET.MF', 'META-INF/maven/**', 'META-INF/*.RSA', 'META-INF/*.SF'
+		exclude 'dummyThing', 'LICENSE.txt', 'module-info.class', 'META-INF/MANIFEST.MF', 'META-INF/maven/**', 'META-INF/*.RSA', 'META-INF/*.SF'
 	}
 	manifest.attributes (
 			'FMLAT': "${mod_id}_at.cfg",
