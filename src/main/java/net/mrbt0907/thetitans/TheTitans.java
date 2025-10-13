@@ -2,6 +2,8 @@ package net.mrbt0907.thetitans;
 
 import org.apache.logging.log4j.Logger;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -11,11 +13,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid=TheTitans.MODID, name=TheTitans.MODNAME, version=TheTitans.VERSION, acceptedMinecraftVersions="[1.12.2]")
+@Mod(modid=TheTitans.MOD_ID, name=TheTitans.MOD_NAME, version=TheTitans.VERSION, acceptedMinecraftVersions="[1.12.2]")
 public class TheTitans 
 {
-	public static final String MODNAME = "The Titans Mod";
-	public static final String MODID = "thetitans";
+	public static final String MOD_NAME = "The Titans Mod";
+	public static final String MOD_ID = "thetitans";
 	public static final String VERSION = "0.7.0-indev";
 	public static final String CLIENT = "net.mrbt0907.thetitans.ClientProxy";
 	public static final String SERVER = "net.mrbt0907.thetitans.CommonProxy";
@@ -38,14 +40,14 @@ public class TheTitans
 	//public static final DimensionType DIMENSION_VOID = DimensionType.register("The Void", "_void", DIMENSION_VOID_ID, WorldProviderVoid.class, false);
 	
 	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent e)
+	public void preInit(FMLPreInitializationEvent event)
 	{
-		logger = e.getModLog();
-		//ConfigManager.sync(MODID, Config.Type.INSTANCE);
+		logger = event.getModLog();
+		ConfigManager.sync(MOD_ID, Config.Type.INSTANCE);
 		info("Loading The Titans Mod...");
 		debug("Pre-Initialization started");
-		//NetworkHandler.register(NETWORK);
 		MinecraftForge.EVENT_BUS.register(this);
+		//NetworkHandler.register(NETWORK);
 		//MinecraftForge.EVENT_BUS.register(GameEventHandler.class);
 		//MinecraftForge.EVENT_BUS.register(InternalEventHandler.class);
 		//MinecraftForge.EVENT_BUS.register(BlockRegistry.class);
@@ -56,33 +58,33 @@ public class TheTitans
 		//DimensionManager.registerDimension(DIMENSION_VOID_ID, DIMENSION_VOID);
 		//DimensionManager.registerDimension(DIMENSION_NOWHERE_ID, DIMENSION_NOWHERE);
 		
-		proxy.preInit(e);
+		proxy.preInit(event);
 		debug("Pre-Initialization finished");
 	}
 	
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent e)
+	public void init(FMLInitializationEvent event)
 	{
 		debug("Initialization started");
-		proxy.init(e);
+		proxy.init(event);
 		debug("Initialization finished");
 	}
 
 	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent e)
+	public void postInit(FMLPostInitializationEvent event)
 	{
 		debug("Post-Initialization started!");
-		proxy.postInit(e);
+		proxy.postInit(event);
 		debug("Post-Initialization finished");
 		info("Finished The Titans Mod!");
 	}
 	
 	@SubscribeEvent
-    public void onConfigChanged(OnConfigChangedEvent event)
-    {
-        //if (event.getModID().equals(MODID))
-            //ConfigManager.sync(MODID, Config.Type.INSTANCE);
-    }
+	public void onConfigChanged(OnConfigChangedEvent event)
+	{
+		if (event.getModID().equals(MOD_ID))
+			ConfigManager.sync(MOD_ID, Config.Type.INSTANCE);
+	}
 	
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event)
@@ -97,39 +99,29 @@ public class TheTitans
 	
 	public static void debug(Object message)
 	{
-		//boolean isDebug = ConfigMain.debug_mode;
-		//if (isDebug)
+		if (ConfigTitans.debug_mode)
 			logger.info("[DEBUG] " + message);
 	}
 	
 	public static void warn(Object message)
 	{
-		//boolean isDebug = ConfigMain.debug_mode;
-		//if (isDebug)
+		if (ConfigTitans.debug_mode)
 			logger.warn(message);
 	}
 
 	public static void error(Object message)
 	{
-			Throwable exception;
-			
-			if (message instanceof Throwable)
-				exception = (Throwable) message;
-			else
-				exception = new Exception(String.valueOf(message));
-
-			exception.printStackTrace();
+		if (message instanceof Throwable)
+			((Throwable) message).printStackTrace();
+		else
+			new Exception(String.valueOf(message)).printStackTrace();
 	}
 	
 	public static void fatal(Object message)
 	{
-		Error error;
-		
 		if (message instanceof Error)
-			error = (Error) message;
+			throw (Error) message;
 		else
-			error = new Error(String.valueOf(message));
-		
-		throw error;
+			throw new Error(String.valueOf(message));
 	}
 }

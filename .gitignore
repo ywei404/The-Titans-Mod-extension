@@ -27,6 +27,6 @@ run
 libs
 unused
 setup.bat
-gradlew.bat
 runClient.bat
 runServer.bat
+build.bat
