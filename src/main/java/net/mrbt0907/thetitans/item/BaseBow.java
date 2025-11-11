@@ -246,20 +246,33 @@ public final Predicate<ItemStack> arrowPredicate;
 			onStartUse(result.getResult(), world, shooter);
 		return result;
     }
-	
-	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase shooter, int timeLeft)
-	{
-		if (!(shooter instanceof EntityPlayer)) return;
-		onTickUse(stack, shooter.world, (EntityPlayer) shooter, timeLeft);
-		if (!autoFire) return;
-		int maxUseTime = stack.getMaxItemUseDuration();
-		if (maxUseTime - timeLeft > getChargeTime(stack))
-		{
-			shoot(stack, shooter.world, (EntityPlayer) shooter, 0);
-			shooter.activeItemStackUseCount = maxUseTime;
-		}
-	}
+
+    @Override
+    public void onUsingTick(ItemStack stack, EntityLivingBase shooter, int timeLeft)
+    {
+        if (!(shooter instanceof EntityPlayer)) return;
+        EntityPlayer player = (EntityPlayer) shooter;
+
+        // Custom tick behavior
+        onTickUse(stack, shooter.world, player, timeLeft);
+
+        // Stop if auto-fire disabled
+        if (!autoFire) return;
+
+        int maxUseTime = stack.getMaxItemUseDuration();
+        int charge = maxUseTime - timeLeft;
+
+        // Once charged enough, shoot automatically
+        if (charge >= getChargeTime(stack))
+        {
+            shoot(stack, shooter.world, player, 0);
+
+            // Reset usage so player can keep drawing automatically
+            player.stopActiveHand();          // ends current use action
+            player.setActiveHand(player.getActiveHand());  // immediately restarts use
+        }
+    }
+
 	
 	public float getVelocity(ItemStack stack, int charge)
 	{
