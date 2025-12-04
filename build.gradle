@@ -7,11 +7,11 @@ buildscript
 	}
 	dependencies
 	{
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
 	}
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'java'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 project.mkdir "libs"
@@ -22,12 +22,25 @@ archivesBaseName = mod_name
 
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
-	mappings = minecraft_mappings
-	makeObfSourceJar = false
-	runDir = "run"
-	clientRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
-	serverRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
+
+    mappings channel: 'snapshot', version: '20171003-1.12'
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.console.level', 'debug'
+        }
+
+        server {
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
+
 }
 
 task debugClient {
@@ -51,9 +64,6 @@ task debugServer {
 	finalizedBy 'runServer'
 }
 
-runClient.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
-runServer.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
-
 repositories
 {
 	maven
@@ -67,28 +77,24 @@ repositories
 			name = 'sponge'
 			url = 'https://repo.spongepowered.org/repository/maven-public/'
 		}
+    maven { url = 'https://www.cursemaven.com' } // For CurseForge mods
+
 }
 
 dependencies
 {
-    runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    //runtime ("curse.maven:jei-238222:2640458")
    compile ("org.spongepowered:mixin:${mixin_version}")
-   {
-       exclude module: "launchwrapper"
-       exclude module: "guava"
-       exclude module: "gson"
-       exclude module: "commons-io"
-   }
+
+        minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
 }
 
 processResources
 {
     inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
     from(sourceSets.main.resources.srcDirs)
     {
         include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
 }
 

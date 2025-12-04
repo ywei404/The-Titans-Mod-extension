@@ -20,13 +20,6 @@ build
 # other
 eclipse
 run
-.vscode/
-.classpath
-.project
-.settings/
-libs
-unused
-setup.bat
-runClient.bat
-runServer.bat
-build.bat
+
+# Files from Forge MDK
+forge*changelog.txt
