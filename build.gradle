@@ -4,14 +4,21 @@ buildscript
 	{
 		jcenter()
 		maven { url = "https://files.minecraftforge.net/maven" }
+		maven
+		{
+			name = 'sponge'
+			url = 'https://repo.spongepowered.org/repository/maven-public'
+		}
 	}
 	dependencies
 	{
-        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath 'com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:1.2.4'
 	}
 }
 
-apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 project.mkdir "libs"
@@ -20,48 +27,14 @@ version = mod_version
 group = mod_group
 archivesBaseName = mod_name
 
+project.tasks.build.dependsOn project.tasks.shadowJar
 
-minecraft {
-
-    mappings channel: 'snapshot', version: '20171003-1.12'
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            property 'forge.logging.console.level', 'debug'
-        }
-
-        server {
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            property 'forge.logging.console.level', 'debug'
-        }
-    }
-
-}
-
-task debugClient {
-    group = 'Minecraft'
-    description = 'Run Minecraft client with debugger attached. Used for VSCode'
-    doFirst
-	{
-		runClient.jvmArgs+= ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"]
-	}
-	finalizedBy 'runClient'
-}
-
-task debugServer {
-    group = 'Minecraft'
-    description = 'Run Minecraft server with debugger attached. Used for VSCode'
-    
-    doFirst
-	{
-		runServer.jvmArgs+= ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"]
-	}
-	finalizedBy 'runServer'
+minecraft
+{
+	version = "${minecraft_version}-${forge_version}"
+	mappings = minecraft_mappings
+	makeObfSourceJar = false
+	runDir = "run"
 }
 
 repositories
@@ -71,44 +44,42 @@ repositories
 		name 'Progwml6'
 		url "http://dvs1.progwml6.com/files/maven"
 	}
-	
-		maven
-		{
-			name = 'sponge'
-			url = 'https://repo.spongepowered.org/repository/maven-public/'
-		}
-    maven { url = 'https://www.cursemaven.com' } // For CurseForge mods
-
 }
 
 dependencies
 {
-    //runtime ("curse.maven:jei-238222:2640458")
-   compile ("org.spongepowered:mixin:${mixin_version}")
+	runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
+}
 
-        minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
+shadowJar
+{
+	mergeServiceFiles()
+    
+	dependencies
+	{
+		exclude(dependency("mezz.jei:jei_${minecraft_version}:${jei_version}"))
+		exclude 'LICENSE.txt', 'module-info.class', 'META-INF/maven/**', "META-INF/${mod_util}_mixin.json", "META-INF/${mod_util}_at.cfg", 'META-INF/fml_cache_annotation.json', 'META-INF/fml_cache_class_versions.json', 'META-INF/*.RSA', 'META-INF/*.SF'
+	}
+    	
+	manifest.attributes (
+		'FMLAT': "${mod_id}_at.cfg",
+		'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+		'MixinConfigs': "META-INF/${mod_id}_mixin.json",
+		'FMLCorePluginContainsFMLMod': 'true',
+        'ForceLoadAsMod': 'true'
+	)
+    relocate 'net.mrbt0907.util', 'net.mrbt0907.thetitans.util'
+	classifier null
+    finalizedBy 'reobfJar'
 }
 
 processResources
 {
     inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
     from(sourceSets.main.resources.srcDirs)
     {
         include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-}
-
-jar
-{
-	from {configurations.compileClasspath.filter {"mixin-${mixin_version}.jar" == it.name}.collect{it.isDirectory() ? it : zipTree(it)}}
-	{
-		exclude 'dummyThing', 'LICENSE.txt', 'module-info.class', 'META-INF/MANIFEST.MF', 'META-INF/maven/**', 'META-INF/*.RSA', 'META-INF/*.SF'
-	}
-	manifest.attributes (
-			'FMLAT': "${mod_id}_at.cfg",
-			'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-			'MixinConfigs': "META-INF/${mod_id}_mixin.json",
-			'FMLCorePluginContainsFMLMod': 'true'
-	)
-	finalizedBy 'reobfJar'
 }
