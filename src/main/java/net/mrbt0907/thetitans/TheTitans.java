@@ -1,6 +1,19 @@
 package net.mrbt0907.thetitans;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.DimensionType;
+
+import net.mrbt0907.thetitans.registries.BlockRegistry;
+import net.mrbt0907.thetitans.registries.ItemRegistry;
+
 import org.apache.logging.log4j.Logger;
+
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -28,15 +41,15 @@ public class TheTitans
 	//public static final NetworkReciever NETWORK = new NetworkReciever();
 	private static Logger logger;
 	
-	//public static final CreativeTabs TAB_BLOCKS = new CreativeTabs(MODID + "_blocks") {@Override public ItemStack getTabIconItem() {return new ItemStack(BlockRegistry.harcadium_ore[0]);}};
-	//public static final CreativeTabs TAB_ITEMS = new CreativeTabs(MODID + "_items") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadium);}};
-	//public static final CreativeTabs TAB_COMBAT = new CreativeTabs(MODID + "_weapons") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[4]);}};
-	//public static final CreativeTabs TAB_TOOLS = new CreativeTabs(MODID + "_tools") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[0]);}};
-	//public static final CreativeTabs TAB_MOBS = new CreativeTabs(MODID + "_mobs") {@Override public ItemStack getTabIconItem() {return new ItemStack(Blocks.SKULL, 1, 1);}};
+	//public static final CreativeTabs TAB_BLOCKS = new CreativeTabs(MOD_ID + "_blocks") {@Override public ItemStack getTabIconItem() {return new ItemStack(BlockRegistry.harcadium_ore[0]);}};
+	//public static final CreativeTabs TAB_ITEMS = new CreativeTabs(MOD_ID + "_items") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadium);}};
+	//public static final CreativeTabs TAB_COMBAT = new CreativeTabs(MOD_ID + "_weapons") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[4]);}};
+	//public static final CreativeTabs TAB_TOOLS = new CreativeTabs(MOD_ID + "_tools") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[0]);}};
+	public static final CreativeTabs TAB_MOBS = new CreativeTabs(MOD_ID + "_mobs") {@Override public ItemStack getTabIconItem() {return new ItemStack(Blocks.SKULL, 1, 1);}};
 	//public static final EnumCreatureType VOID = EnumHelper.addCreatureType("VOID", IEndMob.class, 20, Material.AIR, true, false);
 	
-	//public static final int DIMENSION_VOID_ID = 312;
-	//public static final int DIMENSION_NOWHERE_ID = 313;
+	public static final int DIMENSION_VOID_ID = 312;
+	public static final int DIMENSION_NOWHERE_ID = 313;
 	//public static final DimensionType DIMENSION_VOID = DimensionType.register("The Void", "_void", DIMENSION_VOID_ID, WorldProviderVoid.class, false);
 	
 	@Mod.EventHandler
@@ -50,8 +63,8 @@ public class TheTitans
 		//NetworkHandler.register(NETWORK);
 		//MinecraftForge.EVENT_BUS.register(GameEventHandler.class);
 		//MinecraftForge.EVENT_BUS.register(InternalEventHandler.class);
-		//MinecraftForge.EVENT_BUS.register(BlockRegistry.class);
-		//MinecraftForge.EVENT_BUS.register(ItemRegistry.class);
+		MinecraftForge.EVENT_BUS.register(BlockRegistry.class);
+		MinecraftForge.EVENT_BUS.register(ItemRegistry.class);
 		//MinecraftForge.EVENT_BUS.register(BiomeRegistry.class);
 		//RecipeRegistry.INSTANCE.init();
 		
