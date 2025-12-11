@@ -4,6 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
 
@@ -43,9 +44,9 @@ public class TheTitans
 	
 	public static final CreativeTabs TAB_BLOCKS = new CreativeTabs(MOD_ID + "_blocks") {@Override public ItemStack getTabIconItem() {return new ItemStack(BlockRegistry.harcadium_ore[0]);}};
 	public static final CreativeTabs TAB_ITEMS = new CreativeTabs(MOD_ID + "_items") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadium);}};
-	//public static final CreativeTabs TAB_COMBAT = new CreativeTabs(MOD_ID + "_weapons") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[4]);}};
-	//public static final CreativeTabs TAB_TOOLS = new CreativeTabs(MOD_ID + "_tools") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[0]);}};
-	public static final CreativeTabs TAB_MOBS = new CreativeTabs(MOD_ID + "_mobs") {@Override public ItemStack getTabIconItem() {return new ItemStack(Blocks.SKULL, 1, 1);}};
+	public static final CreativeTabs TAB_COMBAT = new CreativeTabs(MOD_ID + "_weapons") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[4]);}};
+	public static final CreativeTabs TAB_TOOLS = new CreativeTabs(MOD_ID + "_tools") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[0]);}};
+	public static final CreativeTabs TAB_MOBS = new CreativeTabs(MOD_ID + "_mobs") {@Override public ItemStack getTabIconItem() {return new ItemStack(Items.SKULL, 1, 1);}};
 	//public static final EnumCreatureType VOID = EnumHelper.addCreatureType("VOID", IEndMob.class, 20, Material.AIR, true, false);
 	
 	public static final int DIMENSION_VOID_ID = 312;

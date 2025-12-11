@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
 import net.mrbt0907.thetitans.TheTitans;
+import net.mrbt0907.thetitans.item.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,10 @@ public class ItemRegistry
     private static RegistryEvent.Register<Item> registry;
     private static final List<Block> item_blocks = new ArrayList<Block>();
 
+    public static final ItemMaterial toolMaterialHarcadium = new ItemMaterial("harcadium", 17, 75000, 120.0F, 14996.0F, 30);
+
     public static final Item harcadium = new Item();
+    public static Item[] harcadiumTools;
 
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Item> event)
@@ -36,13 +40,43 @@ public class ItemRegistry
             add(block.getRegistryName().getResourcePath(), new ItemBlock(block), null);
 
         add("harcadium", harcadium, TheTitans.TAB_ITEMS);
+        harcadiumTools = addTools(toolMaterialHarcadium);
 
         registry = null;
         TheTitans.debug("Finished registering items");
     }
 
+    private static Item[] addTools(ItemMaterial material)
+    {
+        Item[] tools = new Item[5];
+        for (int i = 0; i < 5; i++)
+            switch(i)
+            {
+                case 0:
+                    tools[i] = new BasePickaxe(material);
+                    add(material.getName() + "_pickaxe", tools[i], TheTitans.TAB_TOOLS);
+                    break;
+                case 1:
+                    tools[i] = new BaseAxe(material);
+                    add(material.getName() + "_axe", tools[i], TheTitans.TAB_TOOLS);
+                    break;
+                case 2:
+                    tools[i] = new BaseShovel(material);
+                    add(material.getName() + "_spade", tools[i], TheTitans.TAB_TOOLS);
+                    break;
+                case 3:
+                    tools[i] = new BaseHoe(material);
+                    add(material.getName() + "_hoe", tools[i], TheTitans.TAB_TOOLS);
+                    break;
+                case 4:
+                    //tools[i] = material.getDamage() >= toolMaterialHarcadium.getDamage() ? new BaseTitanSword(material) : new BaseSword(material.getToolMaterial(), 0.0D);
+                    //	add(material.getName() + "_sword", tools[i], TheTitans.TAB_COMBAT);
+                    break;
+            }
+        return tools;
+    }
 
-        public static void add(Block block)
+    public static void add(Block block)
     {
         item_blocks.add(block);
     }
