@@ -24,6 +24,8 @@ public class ItemRegistry
     private static RegistryEvent.Register<Item> registry;
     private static final List<Block> item_blocks = new ArrayList<Block>();
 
+    public static final Item harcadium = new Item();
+
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Item> event)
     {
@@ -32,6 +34,8 @@ public class ItemRegistry
 
         for (Block block : item_blocks)
             add(block.getRegistryName().getResourcePath(), new ItemBlock(block), null);
+
+        add("harcadium", harcadium, TheTitans.TAB_ITEMS);
 
         registry = null;
         TheTitans.debug("Finished registering items");

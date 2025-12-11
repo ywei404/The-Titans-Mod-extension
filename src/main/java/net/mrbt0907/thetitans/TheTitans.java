@@ -42,7 +42,7 @@ public class TheTitans
 	private static Logger logger;
 	
 	public static final CreativeTabs TAB_BLOCKS = new CreativeTabs(MOD_ID + "_blocks") {@Override public ItemStack getTabIconItem() {return new ItemStack(BlockRegistry.harcadium_ore[0]);}};
-	//public static final CreativeTabs TAB_ITEMS = new CreativeTabs(MOD_ID + "_items") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadium);}};
+	public static final CreativeTabs TAB_ITEMS = new CreativeTabs(MOD_ID + "_items") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadium);}};
 	//public static final CreativeTabs TAB_COMBAT = new CreativeTabs(MOD_ID + "_weapons") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[4]);}};
 	//public static final CreativeTabs TAB_TOOLS = new CreativeTabs(MOD_ID + "_tools") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[0]);}};
 	public static final CreativeTabs TAB_MOBS = new CreativeTabs(MOD_ID + "_mobs") {@Override public ItemStack getTabIconItem() {return new ItemStack(Blocks.SKULL, 1, 1);}};
