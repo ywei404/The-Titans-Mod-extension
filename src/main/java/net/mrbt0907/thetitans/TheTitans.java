@@ -43,9 +43,9 @@ public class TheTitans
 	public static boolean debug_mode = true;
 	
 	public static final CreativeTabs TAB_BLOCKS = new CreativeTabs(MODID + "_blocks") {@Override public ItemStack getTabIconItem() {return new ItemStack(BlockRegistry.harcadium_ore[0]);}};
-	public static final CreativeTabs TAB_ITEMS = new CreativeTabs(MODID + "_items") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadium);}};
-	public static final CreativeTabs TAB_COMBAT = new CreativeTabs(MODID + "_weapons") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[4]);}};
-	public static final CreativeTabs TAB_TOOLS = new CreativeTabs(MODID + "_tools") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.harcadiumTools[0]);}};
+	public static final CreativeTabs TAB_ITEMS = new CreativeTabs(MODID + "_items") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.HARCADIUM);}};
+	public static final CreativeTabs TAB_COMBAT = new CreativeTabs(MODID + "_weapons") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.HARCADIUM_TOOLS[4]);}};
+	public static final CreativeTabs TAB_TOOLS = new CreativeTabs(MODID + "_tools") {@Override public ItemStack getTabIconItem() {return new ItemStack(ItemRegistry.HARCADIUM_TOOLS[0]);}};
 	public static final CreativeTabs TAB_MOBS = new CreativeTabs(MODID + "_mobs") {@Override public ItemStack getTabIconItem() {return new ItemStack(Blocks.SKULL, 1, 1);}};
 	//public static final EnumCreatureType VOID = EnumHelper.addCreatureType("VOID", IEndMob.class, 20, Material.AIR, true, false);
 	

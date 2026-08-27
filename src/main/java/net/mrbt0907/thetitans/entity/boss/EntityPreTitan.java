@@ -637,12 +637,12 @@ public abstract class EntityPreTitan extends EntityTitan implements IRangedAttac
                 this.world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, this.posX + (double) f, this.posY + (double) f1, this.posZ + (double) f2, 0.0D, 0.0D, 0.0D);
         }
 
-        System.out.println(
-                "DEATH: hp=" + getHealth()
-                        + " alive=" + isEntityAlive()
-                        + " deathTicks=" + deathTicks
-                        + " isDead=" + isDead
-        );
+//        System.out.println(
+//                "DEATH: hp=" + getHealth()
+//                        + " alive=" + isEntityAlive()
+//                        + " deathTicks=" + deathTicks
+//                        + " isDead=" + isDead
+//        );
     }
 
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {

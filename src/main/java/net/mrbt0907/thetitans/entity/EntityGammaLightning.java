@@ -135,7 +135,7 @@ public class EntityGammaLightning extends EntityLightningBolt
 				if (target instanceof EntityPlayer)
 				{
 					EntityPlayer player = ((EntityPlayer)target);
-					if (player.inventory.hasItemStack(new ItemStack(ItemRegistry.ultimaBlade)) || player.inventory.hasItemStack(new ItemStack(ItemRegistry.optimaAxe)))
+					if (player.inventory.hasItemStack(new ItemStack(ItemRegistry.ULTIMA_BLADE)) || player.inventory.hasItemStack(new ItemStack(ItemRegistry.OPTIMA_AXE)))
 						immune = true;
 				}
 				

@@ -26,81 +26,82 @@ import net.mrbt0907.thetitans.items.BaseSword;
 import net.mrbt0907.thetitans.items.BaseTitanSword;
 import net.mrbt0907.thetitans.items.ItemMaterial;
 import net.mrbt0907.thetitans.items.ItemTeleporter;
+import net.mrbt0907.thetitans.items.functions.OnArmorTickImplements;
 
 public class ItemRegistry 
 {
 	private static RegistryEvent.Register<Item> registry;
-	private static final List<Block> item_blocks = new ArrayList<Block>();
+	private static final List<Block> ITEM_BLOCKS = new ArrayList<Block>();
 
-	public static final ItemMaterial armorMaterialAdminium = new ItemMaterial("adminium", 100000000, 100000, 100000, 100000, 100000, 0.0F, 60, null);
-	public static final ItemMaterial armorMaterialVoid = new ItemMaterial("void", 100000, 11, 17, 13, 9, 0.0F, 50, null);
-	public static final ItemMaterial armorMaterialHellsite = new ItemMaterial("hellsite", 50000, 10, 15, 12, 9, 0.0F, 40, null);
-	public static final ItemMaterial armorMaterialHarcadium = new ItemMaterial("harcadium", 20000, 9, 13, 10, 8, 0.0F, 30, null);
-	public static final ItemMaterial armorMaterialDemontium = new ItemMaterial("demontium", 20000, 9, 13, 10, 8, 0.0F, 30, null);
-	public static final ItemMaterial toolMaterialOmni = new ItemMaterial("omni", Integer.MAX_VALUE, Integer.MAX_VALUE, Float.MAX_VALUE, 10000000.0F, 256);
-	public static final ItemMaterial toolMaterialAdamantium = new ItemMaterial("adamantium", Integer.MAX_VALUE - 1, Integer.MAX_VALUE, 100000000000000.0F, 2500000.0F, 100);
-	public static final ItemMaterial toolMaterialAdminium = new ItemMaterial("adminium", Integer.MAX_VALUE - 2, 1000000000, 1000000000.0F, 999996.0F, 60);
-	public static final ItemMaterial toolMaterialVoid = new ItemMaterial("void", Integer.MAX_VALUE - 25, 5000000, 4800.0F, 249996.0F, 50);
-	public static final ItemMaterial toolMaterialTitanus = new ItemMaterial("titanus", 20, 5000000, 4800.0F, 119996.0F, 50);
-	public static final ItemMaterial toolMaterialHellsite = new ItemMaterial("hellsite", 19, 225000, 960.0F, 34996.0F, 40);
-	public static final ItemMaterial toolMaterialHarcadium = new ItemMaterial("harcadium", 17, 75000, 120.0F, 14996.0F, 30);
+	public static final ItemMaterial ARMOR_MATERIAL_ADMINIUM = new ItemMaterial("adminium", 100000000, 100000, 100000, 100000, 100000, 0.0F, 60, null);
+	public static final ItemMaterial ARMOR_MATERIAL_VOID = new ItemMaterial("void", 100000, 11, 17, 13, 9, 0.0F, 50, null);
+	public static final ItemMaterial ARMOR_MATERIAL_HELLSITE = new ItemMaterial("hellsite", 50000, 10, 15, 12, 9, 0.0F, 40, null);
+	public static final ItemMaterial ARMOR_MATERIAL_HARCADIUM = new ItemMaterial("harcadium", 20000, 9, 13, 10, 8, 0.0F, 30, null);
+	public static final ItemMaterial ARMOR_MATERIAL_DEMONTIUM = new ItemMaterial("demontium", 20000, 9, 13, 10, 8, 0.0F, 30, null);
+	public static final ItemMaterial TOOL_MATERIAL_OMNI = new ItemMaterial("omni", Integer.MAX_VALUE, Integer.MAX_VALUE, Float.MAX_VALUE, 10000000.0F, 256);
+	public static final ItemMaterial TOOL_MATERIAL_ADAMANTIUM = new ItemMaterial("adamantium", Integer.MAX_VALUE - 1, Integer.MAX_VALUE, 100000000000000.0F, 2500000.0F, 100);
+	public static final ItemMaterial TOOL_MATERIAL_ADMINIUM = new ItemMaterial("adminium", Integer.MAX_VALUE - 2, 1000000000, 1000000000.0F, 999996.0F, 60);
+	public static final ItemMaterial TOOL_MATERIAL_VOID = new ItemMaterial("void", Integer.MAX_VALUE - 25, 5000000, 4800.0F, 249996.0F, 50);
+	public static final ItemMaterial TOOL_MATERIAL_TITANUS = new ItemMaterial("titanus", 20, 5000000, 4800.0F, 119996.0F, 50);
+	public static final ItemMaterial TOOL_MATERIAL_HELLSITE = new ItemMaterial("hellsite", 19, 225000, 960.0F, 34996.0F, 40);
+	public static final ItemMaterial TOOL_MATERIAL_HARCADIUM = new ItemMaterial("harcadium", 17, 75000, 120.0F, 14996.0F, 30);
 	
-	public static final Item ultimaBlade = new BaseTitanSword(toolMaterialOmni);
-	public static final Item optimaAxe = new BaseTitanSword(toolMaterialOmni);
-	public static final Item adamantiumSword = new BaseTitanSword(toolMaterialAdamantium);
-	public static final Item demontiumIngot = new Item();
-	public static final Item harcadium = new Item();
-	public static final Item harcadiumNugget = new Item();
-	public static final Item harcadiumWafer = new Item();
-	public static final Item harcadiumWaflet = new Item();
-	public static final Item hellsite = new Item();
-	public static final Item voidItem = new Item();
-	public static final Item adamantium = new Item();
-	public static Item[] harcadiumTools;
-	public static final Item harcadiumArrow = new Item();
-	public static final Item harcadiumBow = new Item();
-	public static Item[] hellsiteTools;
-	public static Item[] voidTools;
-	public static final Item voidArrow = new Item();
-	public static final Item voidBow = new Item();
-	public static Item[] adminiumTools;
+	public static final Item ULTIMA_BLADE = new BaseTitanSword(TOOL_MATERIAL_OMNI);
+	public static final Item OPTIMA_AXE = new BaseTitanSword(TOOL_MATERIAL_OMNI);
+	public static final Item ADAMANTIUM_SWORD = new BaseTitanSword(TOOL_MATERIAL_ADAMANTIUM);
+	public static final Item DEMONTIUM_INGOT = new Item();
+	public static final Item HARCADIUM = new Item();
+	public static final Item HARCADIUM_NUGGET = new Item();
+	public static final Item HARCADIUM_WAFER = new Item();
+	public static final Item HARCADIUM_WAFLET = new Item();
+	public static final Item HELLSITE = new Item();
+	public static final Item VOID_ITEM = new Item();
+	public static final Item ADAMANTIUM = new Item();
+	public static Item[] HARCADIUM_TOOLS;
+	public static final Item HARCADIUM_ARROW = new Item();
+	public static final Item HARCADIUM_BOW = new Item();
+	public static Item[] HELLSITE_TOOLS;
+	public static Item[] VOID_TOOLS;
+	public static final Item VOID_ARROW = new Item();
+	public static final Item VOID_BOW = new Item();
+	public static Item[] ADMINIUM_TOOLS;
 	
-	public static Item[] demontiumArmorSet;
-	public static Item[] harcadiumArmorSet;
-	public static Item[] hellsiteArmorSet;
-	public static Item[] voidArmorSet;
-	public static Item[] adminiumArmorSet;
+	public static Item[] DEMONTIUM_ARMOR_SET;
+	public static Item[] HARCADIUM_ARMOR_SET;
+	public static Item[] HELLSITE_ARMOR_SET;
+	public static Item[] VOID_ARMOR_SET;
+	public static Item[] ADMINIUM_ARMOR_SET;
 	
-	public static final Item diamondString = new Item();
-	public static final Item growthSerum = new Item();
-	public static final Item teleporter = new ItemTeleporter();
-	public static final Item teleporter2 = new Item();
-	public static final Item goodTurret = new Item();
-	public static final Item goodTurret2 = new Item();
-	public static final Item goodTurret3 = new Item();
-	public static final Item goldenPotatoe = new Item();
-	public static final Item goldenBread = new Item();
-	public static final Item goldenCookie = new Item();
-	public static final Item goldenMelon = new Item();
-	public static final Item goldenPumpkinPie = new Item();
-	public static final Item diamondApple = new Item();
-	public static final Item diamondPotatoe = new Item();
-	public static final Item diamondBread = new Item();
-	public static final Item diamondCookie = new Item();
-	public static final Item diamondMelon = new Item();
-	public static final Item diamondPumpkinPie = new Item();
-	public static final Item pleasantBladeSeed = new Item();
-	public static final Item pleasantBladeLeaf = new Item();
-	public static final Item pleasantBladeFlower = new Item();
-	public static final Item pleasantBladeBrew = new Item();
-	public static final Item malgrum = new Item();
-	public static final Item malgrumSeeds = new Item();
-	public static final Item chaff = new Item();
-	public static final Item witherSkeletonSpawner = new Item();
-	public static final Item eggIronGolemBetter = new Item();
-	public static final Item eventSpawnItem = new Item();
-	public static final Item regularTitansModSpawnEgg = new Item();
-	public static final Item eggTitan = new Item();
+	public static final Item DIAMOND_STRING = new Item();
+	public static final Item GROWTH_SERUM = new Item();
+	public static final Item TELEPORTER = new ItemTeleporter();
+	public static final Item TELEPORTER_2 = new Item();
+	public static final Item GOOD_TURRET = new Item();
+	public static final Item GOOD_TURRET_2 = new Item();
+	public static final Item GOOD_TURRET_3 = new Item();
+	public static final Item GOLDEN_POTATOE = new Item();
+	public static final Item GOLDEN_BREAD = new Item();
+	public static final Item GOLDEN_COOKIE = new Item();
+	public static final Item GOLDEN_MELON = new Item();
+	public static final Item GOLDEN_PUMPKIN_PIE = new Item();
+	public static final Item DIAMOND_APPLE = new Item();
+	public static final Item DIAMOND_POTATOE = new Item();
+	public static final Item DIAMOND_BREAD = new Item();
+	public static final Item DIAMOND_COOKIE = new Item();
+	public static final Item DIAMOND_MELON = new Item();
+	public static final Item DIAMOND_PUMPKIN_PIE = new Item();
+	public static final Item PLEASANT_BLADE_SEED = new Item();
+	public static final Item PLEASANT_BLADE_LEAF = new Item();
+	public static final Item PLEASANT_BLADE_FLOWER = new Item();
+	public static final Item PLEASANT_BLADE_BREW = new Item();
+	public static final Item MALGRUM = new Item();
+	public static final Item MALGRUM_SEEDS = new Item();
+	public static final Item CHAFF = new Item();
+	public static final Item WITHER_SKELETON_SPAWNER = new Item();
+	public static final Item EGG_IRON_GOLEM_BETTER = new Item();
+	public static final Item EVENT_SPAWN_ITEM = new Item();
+	public static final Item REGULAR_TITANS_MOD_SPAWN_EGG = new Item();
+	public static final Item EGG_TITAN = new Item();
 	
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event)
@@ -108,64 +109,68 @@ public class ItemRegistry
 		TheTitans.debug("Registering items...");
 		registry = event;
 		
-		add("ultima_blade", ultimaBlade, TheTitans.TAB_COMBAT);
-		add("optima_axe", optimaAxe, TheTitans.TAB_COMBAT);
-		add("adamantium_sword", adamantiumSword, TheTitans.TAB_COMBAT);
-		add("demontium_ingot", demontiumIngot, TheTitans.TAB_ITEMS);
-		add("harcadium", harcadium, TheTitans.TAB_ITEMS);
-		add("harcadium_nugget", harcadiumNugget, TheTitans.TAB_ITEMS);
-		add("harcadium_wafer", harcadiumWafer, TheTitans.TAB_ITEMS);
-		add("harcadium_waflet", harcadiumWaflet, TheTitans.TAB_ITEMS);
-		add("hellsite", hellsite, TheTitans.TAB_ITEMS);
-		add("void", voidItem, TheTitans.TAB_ITEMS);
-		add("adamantium", adamantium, TheTitans.TAB_ITEMS);
-		harcadiumTools = addTools(toolMaterialHarcadium);
-		add("harcadium_arrow", harcadiumArrow, TheTitans.TAB_COMBAT);
-		add("harcadium_bow", harcadiumBow, TheTitans.TAB_COMBAT);
-		hellsiteTools = addTools(toolMaterialHellsite);
-		voidTools = addTools(toolMaterialVoid);
-		add("void_arrow", voidArrow, TheTitans.TAB_COMBAT);
-		add("void_bow", voidBow, TheTitans.TAB_COMBAT);
-		adminiumTools = addTools(toolMaterialAdminium);
+		add("ultima_blade", ULTIMA_BLADE, TheTitans.TAB_COMBAT);
+		add("optima_axe", OPTIMA_AXE, TheTitans.TAB_COMBAT);
+		add("adamantium_sword", ADAMANTIUM_SWORD, TheTitans.TAB_COMBAT);
+		add("demontium_ingot", DEMONTIUM_INGOT, TheTitans.TAB_ITEMS);
+		add("harcadium", HARCADIUM, TheTitans.TAB_ITEMS);
+		add("harcadium_nugget", HARCADIUM_NUGGET, TheTitans.TAB_ITEMS);
+		add("harcadium_wafer", HARCADIUM_WAFER, TheTitans.TAB_ITEMS);
+		add("harcadium_waflet", HARCADIUM_WAFLET, TheTitans.TAB_ITEMS);
+		add("hellsite", HELLSITE, TheTitans.TAB_ITEMS);
+		add("void", VOID_ITEM, TheTitans.TAB_ITEMS);
+		add("adamantium", ADAMANTIUM, TheTitans.TAB_ITEMS);
+		HARCADIUM_TOOLS = addTools(TOOL_MATERIAL_HARCADIUM);
+		add("harcadium_arrow", HARCADIUM_ARROW, TheTitans.TAB_COMBAT);
+		add("harcadium_bow", HARCADIUM_BOW, TheTitans.TAB_COMBAT);
+		HELLSITE_TOOLS = addTools(TOOL_MATERIAL_HELLSITE);
+		VOID_TOOLS = addTools(TOOL_MATERIAL_VOID);
+		add("void_arrow", VOID_ARROW, TheTitans.TAB_COMBAT);
+		add("void_bow", VOID_BOW, TheTitans.TAB_COMBAT);
+		ADMINIUM_TOOLS = addTools(TOOL_MATERIAL_ADMINIUM);
 		
-		demontiumArmorSet = addArmor(armorMaterialDemontium);
-		harcadiumArmorSet = addArmor(armorMaterialHarcadium);
-		hellsiteArmorSet = addArmor(armorMaterialHellsite);
-		voidArmorSet = addArmor(armorMaterialVoid);
-		adminiumArmorSet = addArmor(armorMaterialAdminium);
+		DEMONTIUM_ARMOR_SET = addArmor(ARMOR_MATERIAL_DEMONTIUM);
+		HARCADIUM_ARMOR_SET = addArmor(ARMOR_MATERIAL_HARCADIUM);
+		HELLSITE_ARMOR_SET = addArmor(ARMOR_MATERIAL_HELLSITE);
+		VOID_ARMOR_SET = addArmor(ARMOR_MATERIAL_VOID);
+		ADMINIUM_ARMOR_SET = addArmor(ARMOR_MATERIAL_ADMINIUM);
 		
-		add("diamond_string", diamondString, TheTitans.TAB_ITEMS);
-		add("growth_serum", growthSerum, TheTitans.TAB_ITEMS);
-		add("teleporter", teleporter, TheTitans.TAB_ITEMS);
-		add("teleporter2", teleporter2, TheTitans.TAB_ITEMS);
-		add("good_turret", goodTurret, TheTitans.TAB_ITEMS);
-		add("good_turret2", goodTurret2, TheTitans.TAB_ITEMS);
-		add("good_turret3", goodTurret3, TheTitans.TAB_ITEMS);
-		add("golden_potatoe", goldenPotatoe, TheTitans.TAB_ITEMS);
-		add("golden_bread", goldenBread, TheTitans.TAB_ITEMS);
-		add("golden_cookie", goldenCookie, TheTitans.TAB_ITEMS);
-		add("golden_melon", goldenMelon, TheTitans.TAB_ITEMS);
-		add("golden_pumpkin_pie", goldenPumpkinPie, TheTitans.TAB_ITEMS);
-		add("diamond_apple", diamondApple, TheTitans.TAB_ITEMS);
-		add("diamond_potatoe", diamondPotatoe, TheTitans.TAB_ITEMS);
-		add("diamond_bread", diamondBread, TheTitans.TAB_ITEMS);
-		add("diamond_cookie", diamondCookie, TheTitans.TAB_ITEMS);
-		add("diamond_melon", diamondMelon, TheTitans.TAB_ITEMS);
-		add("diamond_pumpkin_pie", diamondPumpkinPie, TheTitans.TAB_ITEMS);
-		add("pleasant_blade_seed", pleasantBladeSeed, TheTitans.TAB_ITEMS);
-		add("pleasant_blade_leaf", pleasantBladeLeaf, TheTitans.TAB_ITEMS);
-		add("pleasant_blade_flower", pleasantBladeFlower, TheTitans.TAB_ITEMS);
-		add("pleasant_blade_brew", pleasantBladeBrew, TheTitans.TAB_ITEMS);
-		add("malgrum", malgrum, TheTitans.TAB_ITEMS);
-		add("malgrum_seeds", malgrumSeeds, TheTitans.TAB_ITEMS);
-		add("chaff", chaff, TheTitans.TAB_ITEMS);
-		add("egg_titan", eggTitan, TheTitans.TAB_ITEMS);
+		add("diamond_string", DIAMOND_STRING, TheTitans.TAB_ITEMS);
+		add("growth_serum", GROWTH_SERUM, TheTitans.TAB_ITEMS);
+		add("teleporter", TELEPORTER, TheTitans.TAB_ITEMS);
+		add("teleporter2", TELEPORTER_2, TheTitans.TAB_ITEMS);
+		add("good_turret", GOOD_TURRET, TheTitans.TAB_ITEMS);
+		add("good_turret2", GOOD_TURRET_2, TheTitans.TAB_ITEMS);
+		add("good_turret3", GOOD_TURRET_3, TheTitans.TAB_ITEMS);
+		add("golden_potatoe", GOLDEN_POTATOE, TheTitans.TAB_ITEMS);
+		add("golden_bread", GOLDEN_BREAD, TheTitans.TAB_ITEMS);
+		add("golden_cookie", GOLDEN_COOKIE, TheTitans.TAB_ITEMS);
+		add("golden_melon", GOLDEN_MELON, TheTitans.TAB_ITEMS);
+		add("golden_pumpkin_pie", GOLDEN_PUMPKIN_PIE, TheTitans.TAB_ITEMS);
+		add("diamond_apple", DIAMOND_APPLE, TheTitans.TAB_ITEMS);
+		add("diamond_potatoe", DIAMOND_POTATOE, TheTitans.TAB_ITEMS);
+		add("diamond_bread", DIAMOND_BREAD, TheTitans.TAB_ITEMS);
+		add("diamond_cookie", DIAMOND_COOKIE, TheTitans.TAB_ITEMS);
+		add("diamond_melon", DIAMOND_MELON, TheTitans.TAB_ITEMS);
+		add("diamond_pumpkin_pie", DIAMOND_PUMPKIN_PIE, TheTitans.TAB_ITEMS);
+		add("pleasant_blade_seed", PLEASANT_BLADE_SEED, TheTitans.TAB_ITEMS);
+		add("pleasant_blade_leaf", PLEASANT_BLADE_LEAF, TheTitans.TAB_ITEMS);
+		add("pleasant_blade_flower", PLEASANT_BLADE_FLOWER, TheTitans.TAB_ITEMS);
+		add("pleasant_blade_brew", PLEASANT_BLADE_BREW, TheTitans.TAB_ITEMS);
+		add("malgrum", MALGRUM, TheTitans.TAB_ITEMS);
+		add("malgrum_seeds", MALGRUM_SEEDS, TheTitans.TAB_ITEMS);
+		add("chaff", CHAFF, TheTitans.TAB_ITEMS);
+		add("egg_titan", EGG_TITAN, TheTitans.TAB_ITEMS);
 
-		for (Block block : item_blocks)
+		for (Block block : ITEM_BLOCKS)
 			add(block.getRegistryName().getResourcePath(), new ItemBlock(block), null);
 		
 		registry = null;
 		TheTitans.debug("Finished registering items");
+
+		OnArmorTickImplements.addFunctionsToMap();
+
+		TheTitans.debug("Added onArmorTick functions to map");
 	}
 	
 	private static Item[] addTools(ItemMaterial material)
@@ -191,7 +196,7 @@ public class ItemRegistry
 					add(material.getName() + "_hoe", tools[i], TheTitans.TAB_TOOLS);
 					break;
 				case 4:
-					tools[i] = material.getDamage() >= toolMaterialHarcadium.getDamage() ? new BaseTitanSword(material) : new BaseSword(material.getToolMaterial(), 0.0D);
+					tools[i] = material.getDamage() >= TOOL_MATERIAL_HARCADIUM.getDamage() ? new BaseTitanSword(material) : new BaseSword(material.getToolMaterial(), 0.0D);
 					add(material.getName() + "_sword", tools[i], TheTitans.TAB_COMBAT);
 					break;
 			}
@@ -226,7 +231,7 @@ public class ItemRegistry
 	
 	public static void add(Block block)
 	{
-		item_blocks.add(block);
+		ITEM_BLOCKS.add(block);
 	}
 	
 	private static void add(String name, Item item, CreativeTabs tab)

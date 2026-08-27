@@ -30,7 +30,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.mrbt0907.thetitans.TheTitans;
 import net.mrbt0907.thetitans.api.TitanAPI;
 import net.mrbt0907.thetitans.config.ConfigMain;
-import net.mrbt0907.thetitans.config.TitanOptions;
 import net.mrbt0907.thetitans.entity.EntityMultiPart;
 import net.mrbt0907.thetitans.entity.EntityUrLightning;
 import net.mrbt0907.thetitans.entity.titan.EntityTitan;
@@ -255,7 +254,7 @@ public final class EntityWitherzilla extends EntityTitan implements IRangedAttac
 				List<EntityPlayerMP> players = world.getMinecraftServer().getPlayerList().getPlayers();
 				for (EntityPlayerMP player : players)
 				{
-					ItemStack item = new ItemStack(ItemRegistry.ultimaBlade, 1, 1);
+					ItemStack item = new ItemStack(ItemRegistry.ULTIMA_BLADE, 1, 1);
 					player.entityDropItem(item, 0.0F);
 					playLivingSound();
 					
