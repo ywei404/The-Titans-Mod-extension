@@ -12,12 +12,12 @@ public class TitanOptions
 		@Name("Max Health")
 		@Comment("The maximum amount of health this titan will have.")
 		@RangeDouble(min=0.01D)
-		public double health = 10000000.0D;
+		public double health = 100.0D;
 		
 		@Name("Max Armor")
 		@Comment("The maximum amount of passive armor this titan will have.")
 		@RangeDouble(min=0.0D)
-		public double armor = 100000.0D;
+		public double armor = 1000000.0D;
 
 		@Name("Base Attack Damage")
 		@Comment("The amount of base damage this titan will deal. This value will vary depending on the move used.")

@@ -135,6 +135,16 @@ public class EntityZombieTitanProto extends EntityPreTitan
 				}
 			}
 		}
+
+		System.out.println(
+				"ZombieProto: " +
+						"health=" + getHealth() +
+						", maxHealth=" + getMaxHealth() +
+						", variant=" + getVariant() +
+						", invul=" + getInvulTime() +
+						", deathTicks=" + deathTicks +
+						", isDead=" + isDead
+		);
 	}
 
     /**

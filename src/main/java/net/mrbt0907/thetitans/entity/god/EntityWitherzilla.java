@@ -30,6 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.mrbt0907.thetitans.TheTitans;
 import net.mrbt0907.thetitans.api.TitanAPI;
 import net.mrbt0907.thetitans.config.ConfigMain;
+import net.mrbt0907.thetitans.config.TitanOptions;
 import net.mrbt0907.thetitans.entity.EntityMultiPart;
 import net.mrbt0907.thetitans.entity.EntityUrLightning;
 import net.mrbt0907.thetitans.entity.titan.EntityTitan;
@@ -57,7 +58,7 @@ public final class EntityWitherzilla extends EntityTitan implements IRangedAttac
 	 protected void entityInit()
 	 {
 		 super.entityInit();
-		 dataManager.register(ATTACK_TARGET, Integer.valueOf(0));
+		 dataManager.register(ATTACK_TARGET, 0);
 	 }
 
 	protected void applyEntityAttributes()
@@ -67,6 +68,7 @@ public final class EntityWitherzilla extends EntityTitan implements IRangedAttac
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(ConfigMain.tab_titans.tab_witherzilla.attack_damage);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(ConfigMain.tab_titans.tab_witherzilla.armor);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(getSizeMultiplier() * 1.5D);
+		getEntityAttribute(MAX_TITAN_HEALTH).setBaseValue(ConfigMain.tab_titans.tab_witherzilla.health);
 	}
 
 	public void readEntityFromNBT(NBTTagCompound tagCompund)
@@ -473,8 +475,8 @@ public final class EntityWitherzilla extends EntityTitan implements IRangedAttac
 			return "\u00A7l" + TranslateUtil.translate("entity.witherzilla.name");
 	}
 	
-	@Override
-	public double getTrueMaxHealth() {return ConfigMain.tab_titans.tab_witherzilla.health;}
+//	@Override
+//	public double getTrueMaxHealth() {return ConfigMain.tab_titans.tab_witherzilla.health;}
 
 	@Override
 	public double getMaxStamina() {return Double.MAX_VALUE;}
