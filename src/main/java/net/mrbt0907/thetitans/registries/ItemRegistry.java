@@ -33,11 +33,11 @@ public class ItemRegistry
 	private static RegistryEvent.Register<Item> registry;
 	private static final List<Block> ITEM_BLOCKS = new ArrayList<Block>();
 
-	public static final ItemMaterial ARMOR_MATERIAL_ADMINIUM = new ItemMaterial("adminium", 100000000, 100000, 100000, 100000, 100000, 0.0F, 60, null);
-	public static final ItemMaterial ARMOR_MATERIAL_VOID = new ItemMaterial("void", 100000, 11, 17, 13, 9, 0.0F, 50, null);
-	public static final ItemMaterial ARMOR_MATERIAL_HELLSITE = new ItemMaterial("hellsite", 50000, 10, 15, 12, 9, 0.0F, 40, null);
-	public static final ItemMaterial ARMOR_MATERIAL_HARCADIUM = new ItemMaterial("harcadium", 20000, 9, 13, 10, 8, 0.0F, 30, null);
-	public static final ItemMaterial ARMOR_MATERIAL_DEMONTIUM = new ItemMaterial("demontium", 20000, 9, 13, 10, 8, 0.0F, 30, null);
+	public static final ItemMaterial ARMOR_MATERIAL_ADMINIUM = new ItemMaterial("adminium", 100000000, 100000, 100000, 100000, 100000, 100000.0F, 1000, null);
+	public static final ItemMaterial ARMOR_MATERIAL_VOID = new ItemMaterial("void", 100000, 11, 17, 13, 9, 100.0F, 50, null);
+	public static final ItemMaterial ARMOR_MATERIAL_HELLSITE = new ItemMaterial("hellsite", 50000, 10, 15, 12, 9, 20.0F, 40, null);
+	public static final ItemMaterial ARMOR_MATERIAL_HARCADIUM = new ItemMaterial("harcadium", 20000, 9, 13, 10, 8, 5.0F, 30, null);
+	public static final ItemMaterial ARMOR_MATERIAL_DEMONTIUM = new ItemMaterial("demontium", 20000, 9, 13, 10, 8, 5.0F, 30, null);
 	public static final ItemMaterial TOOL_MATERIAL_OMNI = new ItemMaterial("omni", Integer.MAX_VALUE, Integer.MAX_VALUE, Float.MAX_VALUE, 10000000.0F, 256);
 	public static final ItemMaterial TOOL_MATERIAL_ADAMANTIUM = new ItemMaterial("adamantium", Integer.MAX_VALUE - 1, Integer.MAX_VALUE, 100000000000000.0F, 2500000.0F, 100);
 	public static final ItemMaterial TOOL_MATERIAL_ADMINIUM = new ItemMaterial("adminium", Integer.MAX_VALUE - 2, 1000000000, 1000000000.0F, 999996.0F, 60);
