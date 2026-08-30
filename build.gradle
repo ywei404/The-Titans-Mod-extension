@@ -43,6 +43,8 @@ runServer.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
 
 repositories
 {
+	mavenCentral()
+
 	maven
 	{
 		name 'Progwml6'
@@ -52,6 +54,8 @@ repositories
 
 dependencies
 {
+	compile 'org.apache.commons:commons-collections4:4.4'
+
 	runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
 }
 

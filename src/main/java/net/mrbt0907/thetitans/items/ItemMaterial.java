@@ -9,6 +9,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.EnumHelper;
+import net.mrbt0907.thetitans.util.ItemUtils;
 import net.mrbt0907.util.util.ReflectionUtil;
 public class ItemMaterial
 {
@@ -50,11 +51,17 @@ public class ItemMaterial
 	{
 		this.name = name;
 		this.durability = durability;
-		armor[0] = helmetArmor;
-		armor[1] = chestplateArmor;
-		armor[2] = leggingsArmor;
-		armor[3] = bootsArmor;
+		armor[EntityEquipmentSlot.HEAD.getIndex()] = helmetArmor; // 0 is not helmet, is boots
+		armor[EntityEquipmentSlot.CHEST.getIndex()] = chestplateArmor;
+		armor[EntityEquipmentSlot.LEGS.getIndex()] = leggingsArmor;
+		armor[EntityEquipmentSlot.FEET.getIndex()] = bootsArmor;
 		armorMaterial = EnumHelper.addArmorMaterial(name, name, durability, armor, enchantability, onEquipSound, toughness);
+	}
+
+
+	public ItemMaterial(String name, int durability, int[] totalArmor, float toughness, int enchantability, SoundEvent onEquipSound)
+	{
+		this(name, durability, totalArmor[0], totalArmor[1], totalArmor[2], totalArmor[3], toughness, enchantability, onEquipSound);
 	}
 
 	/**Apply new values to a specific key.
@@ -64,7 +71,7 @@ public class ItemMaterial
 		for (int i = 0; i < items.length; i++)
 		if (items[i] instanceof ItemSword)
 		{
-			ItemSword sword = ((ItemSword)items[i]); 
+			ItemSword sword = ((ItemSword)items[i]);
 			switch (key)
 			{
 				case 1: sword.attackDamage = value; break;
@@ -74,7 +81,7 @@ public class ItemMaterial
 
 		else if (items[i] instanceof ItemTool)
 		{
-			ItemTool tool = ((ItemTool)items[i]); 
+			ItemTool tool = ((ItemTool)items[i]);
 			switch (key)
 			{
 				case 1: ReflectionUtil.set(ItemTool.class, tool, "attackDamage", "field_77865_bY", value); break;
@@ -86,7 +93,7 @@ public class ItemMaterial
 
 		else if (items[i] instanceof ItemArmor)
 		{
-			ItemArmor armorPiece = ((ItemArmor)items[i]); 
+			ItemArmor armorPiece = ((ItemArmor)items[i]);
 			armorPiece.setMaxDamage((int)value);
 		}
 	}
