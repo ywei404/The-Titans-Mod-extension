@@ -1,6 +1,8 @@
 package net.mrbt0907.thetitans.util;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.mrbt0907.thetitans.attribute.dao.AttributeData;
 import net.mrbt0907.thetitans.items.functions.ItemAttributeInstanceUUID;
@@ -16,7 +18,10 @@ public class AttributeUtils {
     public static void addAttributeInstance(Multimap<String, AttributeModifier> modifiers,
                                             String uuidNamePrefix,
                                             List<AttributeData> value) {
-        if (ObjectUtils.allNotNull(modifiers, uuidNamePrefix, value) && StringUtils.isNotBlank(uuidNamePrefix)) {
+        if (ObjectUtils.allNotNull(modifiers, uuidNamePrefix, value)
+                && StringUtils.isNotBlank(uuidNamePrefix)
+                && !value.isEmpty()) {
+
             for (AttributeData attributeDoubleInteger : value) {
                 String attributeName = attributeDoubleInteger.getAttribute().getName();
                 String uuidName = uuidNamePrefix + "_" + attributeName;
@@ -27,6 +32,31 @@ public class AttributeUtils {
                         attributeDoubleInteger.getAmountIn(),
                         attributeDoubleInteger.getOperationIn()
                 ));
+            }
+        }
+    }
+
+    public static void addAttributeInstance(AbstractAttributeMap attributeMap,
+                                            String uuidNamePrefix,
+                                            List<AttributeData> value) {
+        if (ObjectUtils.allNotNull(attributeMap, uuidNamePrefix, value)
+                && StringUtils.isNotBlank(uuidNamePrefix)
+                && !value.isEmpty()) {
+
+            for (AttributeData attributeDoubleInteger : value) {
+                String attributeName = attributeDoubleInteger.getAttribute().getName();
+                String uuidName = uuidNamePrefix + "_" + attributeName;
+
+                Multimap<String, AttributeModifier> modifiers = HashMultimap.create();
+
+                modifiers.put(attributeName, new AttributeModifier(
+                        ItemAttributeInstanceUUID.createUUID(uuidName),
+                        uuidName,
+                        attributeDoubleInteger.getAmountIn(),
+                        attributeDoubleInteger.getOperationIn()
+                ));
+
+                attributeMap.applyAttributeModifiers(modifiers);
             }
         }
     }
