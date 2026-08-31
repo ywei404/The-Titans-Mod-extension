@@ -22,35 +22,68 @@ public class AttributeEvents {
     @SubscribeEvent
     public static void setMaxAbsorptionWhenAddingAbsorption(PotionEvent.PotionAddedEvent event) {
         PotionEffect potionEffect = event.getPotionEffect();
-        Potion potion = potionEffect.getPotion();
+        PotionEffect oldPotionEffect = event.getOldPotionEffect();
         EntityLivingBase entityLiving = event.getEntityLiving();
 
-        if (potion == MobEffects.ABSORPTION && !entityLiving.world.isRemote) {
-            AbstractAttributeMap attributeMap = entityLiving.getAttributeMap();
-            int level = potionEffect.getAmplifier() + 1;
+        if (potionEffect != null) {
+            Potion potion = potionEffect.getPotion();
 
-            AttributeUtils.addAttributeInstance(attributeMap,
-                    potion.getName(),
-                    Lists.newArrayList(AttributeData.of(AttributeRegistry.MAX_ABSORPTION, 4.0 * level, Constants.AttributeModifierOperation.ADD)));
+            if (potion == MobEffects.ABSORPTION && !entityLiving.world.isRemote) {
+                AbstractAttributeMap attributeMap = entityLiving.getAttributeMap();
+                int level = potionEffect.getAmplifier() + 1;
+
+                if (oldPotionEffect != null && oldPotionEffect.getAmplifier() > level - 1){
+                    return;
+                }
+
+                AttributeUtils.addAttributeInstance(
+                        attributeMap,
+                        potion.getName(),
+                        Lists.newArrayList(AttributeData.of(AttributeRegistry.MAX_ABSORPTION, 4.0 * level, Constants.AttributeModifierOperation.ADD)));
+            }
         }
     }
 
-//    @SubscribeEvent
-//    public static void setMaxAbsorptionWhenRemovingAbsorption(PotionEvent.PotionRemoveEvent event) {
-//        PotionEffect potionEffect = event.getPotionEffect();
-//        Potion potion = potionEffect.getPotion();
-//
-//        if (potion == MobEffects.ABSORPTION) {
-//            EntityLivingBase entityLiving = event.getEntityLiving();
-//            AbstractAttributeMap attributeMap = entityLiving.getAttributeMap();
-//            int level = potionEffect.getAmplifier() + 1;
-//
-//            AttributeUtils.addAttributeInstance(attributeMap,
-//                    potion.getName(),
-//                    Lists.newArrayList(AttributeData.of(AttributeRegistry.MAX_ABSORPTION, 4.0 * level, Constants.AttributeModifierOperation.ADD)));
-//        }
-//    }
+    @SubscribeEvent
+    public static void setMaxAbsorptionWhenRemovingAbsorption(PotionEvent.PotionRemoveEvent event) {
+        PotionEffect potionEffect = event.getPotionEffect();
+        Potion potion = event.getPotion();
+        EntityLivingBase entityLiving = event.getEntityLiving();
 
+        if (potionEffect != null) {
+            if (potion == MobEffects.ABSORPTION && !entityLiving.world.isRemote) {
+                AbstractAttributeMap attributeMap = entityLiving.getAttributeMap();
+                int level = potionEffect.getAmplifier() + 1;
+
+                AttributeUtils.removeAttributeInstance(
+                        attributeMap,
+                        potion.getName(),
+                        Lists.newArrayList(AttributeData.of(AttributeRegistry.MAX_ABSORPTION, 4.0 * level, Constants.AttributeModifierOperation.ADD)));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void setMaxAbsorptionWhenAbsorptionExpiring(PotionEvent.PotionExpiryEvent event) {
+        PotionEffect potionEffect = event.getPotionEffect();
+        EntityLivingBase entityLiving = event.getEntityLiving();
+
+        if (potionEffect != null){
+            Potion potion = potionEffect.getPotion();
+
+            if (potion == MobEffects.ABSORPTION && !entityLiving.world.isRemote) {
+                AbstractAttributeMap attributeMap = entityLiving.getAttributeMap();
+                int level = potionEffect.getAmplifier() + 1;
+
+                AttributeUtils.removeAttributeInstance(
+                        attributeMap,
+                        potion.getName(),
+                        Lists.newArrayList(AttributeData.of(AttributeRegistry.MAX_ABSORPTION, 4.0 * level, Constants.AttributeModifierOperation.ADD)));
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void restrictAbsorptionAmount(LivingEvent.LivingUpdateEvent event) {
         Entity entity = event.getEntity();
 
@@ -67,5 +100,7 @@ public class AttributeEvents {
                 }
             }
         }
+
+        // TODO: rewrite it using mixin
     }
 }
