@@ -10,6 +10,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.mrbt0907.thetitans.registries.EnchantmentRegistry;
+import net.mrbt0907.thetitans.util.EnchantmentUtils;
 
 @Mod.EventBusSubscriber
 public class EnchantmentEvents {
@@ -22,15 +23,14 @@ public class EnchantmentEvents {
             EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
             Iterable<ItemStack> armor = entityLivingBase.getArmorInventoryList();
             Enchantment enchantment = EnchantmentRegistry.HEALING;
-            int maxLevel = 0;
+            int totalLevel = 0;
 
             for (ItemStack stack : armor) {
-                maxLevel = Math.max(maxLevel, EnchantmentHelper.getEnchantmentLevel(enchantment, stack));
-                // TODO: replace with method in EnchantmentData class
+                totalLevel += EnchantmentUtils.getEnchantmentLevel(enchantment, stack);
             }
 
-            if (maxLevel > 0) {
-                int interval = Math.max(1, 80 >> Math.min(maxLevel - 1, enchantment.getMaxLevel() - 1));
+            if (totalLevel > 0) {
+                int interval = Math.max(1, 80 / totalLevel);
 
                 if (world.getWorldTime() % interval == 0) {
                     entityLivingBase.heal(1.0F);

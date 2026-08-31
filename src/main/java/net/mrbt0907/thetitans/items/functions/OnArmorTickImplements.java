@@ -12,7 +12,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.mrbt0907.thetitans.enchantment.dao.EnchantmentData;
+import net.mrbt0907.thetitans.registries.EnchantmentRegistry;
 import net.mrbt0907.thetitans.registries.ItemRegistry;
+import net.mrbt0907.thetitans.util.EnchantmentUtils;
 import net.mrbt0907.thetitans.util.EntityUtils;
 import net.mrbt0907.thetitans.util.PotionUtils;
 import org.apache.logging.log4j.util.TriConsumer;
@@ -35,6 +37,8 @@ public class OnArmorTickImplements {
             EnchantmentData.of(Enchantments.UNBREAKING, 3).addEnchantment(itemStack);
             EnchantmentData.of(Enchantments.MENDING, 1).addEnchantment(itemStack);
             EnchantmentData.of(Enchantments.THORNS, 3).addEnchantment(itemStack);
+            EnchantmentData.of(EnchantmentRegistry.HEALING, 3).addEnchantment(itemStack);
+            EnchantmentData.of(EnchantmentRegistry.HEALING, 4).addEnchantment(itemStack);
         };
 
         ON_ARMOR_TICK_IMPLEMENTS.put(ItemRegistry.HARCADIUM_ARMOR_SET[0], (world, entityPlayer, itemStack) -> {
@@ -91,11 +95,11 @@ public class OnArmorTickImplements {
                 PotionUtils.addPotionEffect(entityPlayer, new PotionEffect(MobEffects.HEALTH_BOOST, 6000, 9), 1);
                 PotionUtils.addPotionEffect(entityPlayer, new PotionEffect(MobEffects.SATURATION, 800, 0), 1);
 
-                EnchantmentData.getAllEnchantmentData(itemStack).forEach(enchantmentData -> {
+                EnchantmentUtils.getAllEnchantmentData(itemStack).forEach(enchantmentData -> {
                     Enchantment enchantment = enchantmentData.getEnchantment();
 
                     if (enchantment.isCurse()){
-                        EnchantmentData.removeEnchantments(itemStack, enchantment);
+                        EnchantmentUtils.removeEnchantments(enchantment, itemStack);
                     }
                 });
             }

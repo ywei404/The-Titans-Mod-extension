@@ -115,32 +115,6 @@ public class EnchantmentData {
         this.isRemove = true;
     }
 
-    public static void removeEnchantments(ItemStack itemStack, Enchantment enchantment){
-        if (itemStack == null || itemStack.isEmpty() || enchantment == null) {
-            return;
-        }
-
-        NBTTagList enchantmentTagList = itemStack.getEnchantmentTagList();
-        Iterator<NBTBase> iterator = enchantmentTagList.iterator();
-        int enchantmentID = Enchantment.getEnchantmentID(enchantment);
-
-        if (enchantmentID < 0){
-            return;
-        }
-
-        while (iterator.hasNext()){
-            NBTBase enchantmentTagCompound = iterator.next();
-
-            if (enchantmentTagCompound instanceof NBTTagCompound){
-                short id = ((NBTTagCompound) enchantmentTagCompound).getShort("id");
-
-                if (id == enchantmentID) {
-                    iterator.remove();
-                }
-            }
-        }
-    }
-
     public boolean hasEnchantment(ItemStack itemStack) {
         return getEnchantmentData(itemStack) != null;
     }
@@ -203,27 +177,5 @@ public class EnchantmentData {
         }
 
         return this;
-    }
-
-    public static Collection<EnchantmentData> getAllEnchantmentData(ItemStack itemStack) {
-        if (itemStack == null) {
-            return CollectionUtils.emptyCollection();
-        }
-
-        NBTTagList enchantmentTagList = itemStack.getEnchantmentTagList(); // If itemStack is EMPTY, it will return an empty list
-        List<EnchantmentData> enchantmentDatum = Lists.newArrayList();
-
-        for (int i = 0; i < enchantmentTagList.tagCount(); i++) {
-            NBTTagCompound enchantmentTagCompound = enchantmentTagList.getCompoundTagAt(i);
-            short id = enchantmentTagCompound.getShort("id");
-            short lvl = enchantmentTagCompound.getShort("lvl");
-            Enchantment enchantment = Enchantment.getEnchantmentByID(id);
-
-            if (enchantment != null) {
-                enchantmentDatum.add(EnchantmentData.of(enchantment, lvl));
-            }
-        }
-
-        return enchantmentDatum;
     }
 }
