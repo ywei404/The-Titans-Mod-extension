@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -17,17 +18,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 import net.mrbt0907.thetitans.TheTitans;
-import net.mrbt0907.thetitans.items.BaseArmor;
-import net.mrbt0907.thetitans.items.BaseAxe;
-import net.mrbt0907.thetitans.items.BaseHoe;
-import net.mrbt0907.thetitans.items.BasePickaxe;
-import net.mrbt0907.thetitans.items.BaseShovel;
-import net.mrbt0907.thetitans.items.BaseSword;
-import net.mrbt0907.thetitans.items.BaseTitanSword;
-import net.mrbt0907.thetitans.items.ItemMaterial;
-import net.mrbt0907.thetitans.items.ItemTeleporter;
+import net.mrbt0907.thetitans.items.*;
 import net.mrbt0907.thetitans.items.functions.GetItemAttributeModifiersImplements;
 import net.mrbt0907.thetitans.items.functions.OnArmorTickImplements;
+import net.mrbt0907.thetitans.items.functions.OnFoodEaten;
 import net.mrbt0907.thetitans.util.ItemUtils;
 
 import static net.mrbt0907.thetitans.util.ItemUtils.*;
@@ -101,7 +95,7 @@ public class ItemRegistry {
     public static final Item GOLDEN_COOKIE = new Item();
     public static final Item GOLDEN_MELON = new Item();
     public static final Item GOLDEN_PUMPKIN_PIE = new Item();
-    public static final Item DIAMOND_APPLE = new Item();
+    public static final ItemFood DIAMOND_APPLE = ((ItemFood) new BaseFood(6, 1.8F, false).setAlwaysEdible().setHasSubtypes(true));
     public static final Item DIAMOND_POTATOE = new Item();
     public static final Item DIAMOND_BREAD = new Item();
     public static final Item DIAMOND_COOKIE = new Item();
@@ -198,6 +192,10 @@ public class ItemRegistry {
         GetItemAttributeModifiersImplements.addFunctionsToMap();
 
         TheTitans.debug("Added getItemAttributeModifiers functions to map");
+
+        OnFoodEaten.addFunctionsToMap();
+
+        TheTitans.debug("Added onFoodEaten functions to map");
     }
 
     private static Item[] addTools(ItemMaterial material) {

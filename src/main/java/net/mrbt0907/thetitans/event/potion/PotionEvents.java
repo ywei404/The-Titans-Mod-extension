@@ -37,16 +37,4 @@ public class PotionEvents {
             }
         }
     }
-
-    @SubscribeEvent
-    public static void eatEnchantedGoldenApple(LivingEntityUseItemEvent.Finish event) {
-        ItemStack resultStack = event.getResultStack();
-        EntityLivingBase entityLiving = event.getEntityLiving();
-        Item item = resultStack.getItem();
-
-        if (!entityLiving.world.isRemote && item == Items.GOLDEN_APPLE && resultStack.getMetadata() == 1) {
-            PotionUtils.addPotionEffect(entityLiving, new PotionEffect(PotionRegistry.ABSORPTION_REGENERATION, 2400, 1));
-            PotionUtils.addPotionEffect(entityLiving, new PotionEffect(MobEffects.REGENERATION, 400, 4));
-        }
-    }
 }

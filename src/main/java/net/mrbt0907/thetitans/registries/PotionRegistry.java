@@ -15,7 +15,6 @@ public class PotionRegistry {
     public static void register(RegistryEvent.Register<Potion> event) {
         TheTitans.debug("Registering potions...");
         registry = event;
-
-        BasePotion.MOD_POTION_MAP.forEach((s, potion) -> registry.getRegistry().register(potion));
+        registry.getRegistry().registerAll(BasePotion.MOD_POTION_MAP.values().toArray(new Potion[]{}));
     }
 }

@@ -41,4 +41,12 @@ public class EntityUtils {
             }
         }
     }
+
+    public static EntityEquipmentSlot[] getHandsEquipmentSlots() {
+        return new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND};
+    }
+
+    public static EntityEquipmentSlot[] getArmorEquipmentSlots() {
+        return new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
+    }
 }

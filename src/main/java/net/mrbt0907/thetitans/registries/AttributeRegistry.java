@@ -41,7 +41,7 @@ public class AttributeRegistry {
                 IAttributeInstance attributeInstance = entityPlayer.getEntityAttribute(iAttribute);
 
                 if (attributeInstance != null) {
-                    System.out.println(attributeInstance.getAttribute().getName() + ":" + attributeInstance.getAttributeValue());
+//                    System.out.println(attributeInstance.getAttribute().getName() + ":" + attributeInstance.getAttributeValue());
                 }
             });
         }

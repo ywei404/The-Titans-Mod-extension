@@ -69,6 +69,7 @@ public class TheTitans
 		MinecraftForge.EVENT_BUS.register(ItemRegistry.class);
 		MinecraftForge.EVENT_BUS.register(BiomeRegistry.class);
 		MinecraftForge.EVENT_BUS.register(PotionRegistry.class);
+		MinecraftForge.EVENT_BUS.register(EnchantmentRegistry.class);
 		RecipeRegistry.INSTANCE.init();
 		
 		DimensionManager.registerDimension(DIMENSION_VOID_ID, DIMENSION_VOID);
