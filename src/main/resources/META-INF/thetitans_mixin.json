@@ -1,16 +1,16 @@
 {
-	"required": true,
-	"minVersion": "0.7",
-	"package": "net.mrbt0907.thetitans.util.mixin.injection",
-	"refmap": "mixin.refmap.json",
-	"compatibilityLevel": "JAVA_8",
-	"mixins": [
-		"MixinNetHandlerPlayServer"
-	],
-	"client": [
-		"MixinEntityRenderer"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "required": true,
+  "minVersion": "0.7",
+  "package": "net.mrbt0907.thetitans.util.mixin.injection",
+  "refmap": "mixin.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "verbose": true,
+  "mixins": [
+    "entity.MixinEntityLivingBase"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

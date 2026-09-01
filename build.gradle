@@ -1,24 +1,27 @@
 buildscript
-{
-	repositories
-	{
-		jcenter()
-		maven { url = "https://files.minecraftforge.net/maven" }
-		maven
-		{
-			name = 'sponge'
-			url = 'https://repo.spongepowered.org/repository/maven-public'
-		}
-	}
-	dependencies
-	{
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-		classpath 'com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:1.2.4'
-	}
-}
+        {
+            repositories
+                    {
+                        jcenter()
+                        maven { url = "https://files.minecraftforge.net/maven" }
+                        maven { url = "https://repo.spongepowered.org/maven" }
+                        maven
+                                {
+                                    name = 'sponge'
+                                    url = 'https://repo.spongepowered.org/repository/maven-public'
+                                }
+                    }
+            dependencies
+                    {
+                        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+                        classpath 'com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:1.2.4'
+                        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+                    }
+        }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'java'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 project.mkdir "libs"
@@ -29,65 +32,100 @@ archivesBaseName = mod_name
 
 project.tasks.build.dependsOn project.tasks.shadowJar
 
-minecraft
-{
-	version = "${minecraft_version}-${forge_version}"
-	mappings = minecraft_mappings
-	makeObfSourceJar = false
-	runDir = "run"
-	clientRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
-	serverRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
+//minecraft
+//        {
+//            version = "${minecraft_version}-${forge_version}"
+//            mappings = minecraft_mappings
+//            makeObfSourceJar = false
+//            runDir = "run"
+////	clientRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
+////	serverRunArgs = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
+//            clientRunArgs = [
+//                    "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker",
+//                    "--mixin.config", "META-INF/${mod_id}_mixin.json"
+//            ]
+//
+//            serverRunArgs = [
+//                    "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker",
+//                    "--mixin.config", "META-INF/${mod_id}_mixin.json"
+//            ]
+//        }
+
+minecraft {
+    version = "${minecraft_version}-${forge_version}"
+    mappings = minecraft_mappings
+    makeObfSourceJar = false
+    runDir = "run"
+
+    clientRunArgs = [
+            "--tweakClass",
+            "org.spongepowered.asm.launch.MixinTweaker",
+            "--mixin",
+            "META-INF/${mod_id}_mixin.json"
+    ]
+
+    serverRunArgs = [
+            "--tweakClass",
+            "org.spongepowered.asm.launch.MixinTweaker",
+            "--mixin",
+            "META-INF/${mod_id}_mixin.json"
+    ]
 }
-runClient.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
-runServer.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
+
+//runClient.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
+//runServer.args = ["--tweakClass", "org.spongepowered.asm.launch.MixinTweaker"]
 
 repositories
-{
-	mavenCentral()
+        {
+            mavenCentral()
 
-	maven
-	{
-		name 'Progwml6'
-		url "http://dvs1.progwml6.com/files/maven"
-	}
-}
+            maven
+                    {
+                        name 'Progwml6'
+                        url "http://dvs1.progwml6.com/files/maven"
+                    }
+        }
 
 dependencies
-{
-	compile 'org.apache.commons:commons-collections4:4.4'
+        {
+            compile 'org.apache.commons:commons-collections4:4.4'
 
-	runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
-}
+            runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
+        }
 
 shadowJar
-{
-	mergeServiceFiles()
-    
-	dependencies
-	{
-		exclude(dependency("mezz.jei:jei_${minecraft_version}:${jei_version}"))
-		exclude 'LICENSE.txt', 'module-info.class', 'META-INF/maven/**', "META-INF/${mod_util}_mixin.json", "META-INF/${mod_util}_at.cfg", 'META-INF/fml_cache_annotation.json', 'META-INF/fml_cache_class_versions.json', 'META-INF/*.RSA', 'META-INF/*.SF'
-	}
-    	
-	manifest.attributes (
-		'FMLAT': "${mod_id}_at.cfg",
-		'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-		'MixinConfigs': "META-INF/${mod_id}_mixin.json",
-		'FMLCorePluginContainsFMLMod': 'true',
-        'ForceLoadAsMod': 'true'
-	)
-    relocate 'net.mrbt0907.util', 'net.mrbt0907.thetitans.util'
-	classifier null
-    finalizedBy 'reobfJar'
-}
+        {
+            mergeServiceFiles()
+
+            dependencies
+                    {
+                        exclude(dependency("mezz.jei:jei_${minecraft_version}:${jei_version}"))
+                        exclude 'LICENSE.txt', 'module-info.class', 'META-INF/maven/**', "META-INF/${mod_util}_mixin.json", "META-INF/${mod_util}_at.cfg", 'META-INF/fml_cache_annotation.json', 'META-INF/fml_cache_class_versions.json', 'META-INF/*.RSA', 'META-INF/*.SF'
+                    }
+
+            manifest.attributes(
+                    'FMLAT': "${mod_id}_at.cfg",
+                    'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                    'MixinConfigs': "META-INF/${mod_id}_mixin.json",
+                    'FMLCorePluginContainsFMLMod': 'true',
+                    'ForceLoadAsMod': 'true'
+            )
+            relocate 'net.mrbt0907.util', 'net.mrbt0907.thetitans.util'
+            classifier null
+            finalizedBy 'reobfJar'
+        }
 
 processResources
-{
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-    from(sourceSets.main.resources.srcDirs)
-    {
-        include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
+        {
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
+            from(sourceSets.main.resources.srcDirs)
+                    {
+                        include 'mcmod.info'
+                        expand 'version': project.version, 'mcversion': project.minecraft.version
+                    }
+        }
+
+mixin {
+    add sourceSets.main, "mixin.refmap.json"
 }
