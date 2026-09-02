@@ -1,8 +1,10 @@
 package net.mrbt0907.thetitans.capability.entity.impl;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.util.math.MathHelper;
 import net.mrbt0907.thetitans.capability.entity.ILifebloomCharge;
+import net.mrbt0907.thetitans.registries.AttributeRegistry;
 
 public class LifebloomCharge implements ILifebloomCharge {
 
@@ -43,6 +45,13 @@ public class LifebloomCharge implements ILifebloomCharge {
 
     @Override
     public float getMaxCharge() {
-        return entity.getMaxHealth() * 5.0F;
+        float maxChargeRatio = 5.0F;
+        IAttributeInstance attributeInstance = entity.getEntityAttribute(AttributeRegistry.MAX_LIFEBLOOM_RATIO);
+
+        if (attributeInstance != null) {
+            maxChargeRatio = (float) attributeInstance.getAttributeValue();
+        }
+
+        return entity.getMaxHealth() * maxChargeRatio;
     }
 }

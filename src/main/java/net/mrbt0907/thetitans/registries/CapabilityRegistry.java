@@ -8,8 +8,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.mrbt0907.thetitans.TheTitans;
 import net.mrbt0907.thetitans.capability.entity.ILifebloomCharge;
@@ -22,7 +23,7 @@ public class CapabilityRegistry {
     @CapabilityInject(ILifebloomCharge.class)
     public static Capability<ILifebloomCharge> LIFEBLOOM_CHARGE = null;
 
-    public static void register(){
+    public static void register() {
         CapabilityManager.INSTANCE.register(ILifebloomCharge.class, new LifebloomChargeStorage(), LifebloomCharge::new);
     }
 
@@ -38,14 +39,16 @@ public class CapabilityRegistry {
         }
     }
 
-    @SubscribeEvent
-    public static void watcher(LivingEvent.LivingUpdateEvent event){
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void watcher(LivingHealEvent event) {
         EntityLivingBase entityLiving = event.getEntityLiving();
 
-        if (entityLiving instanceof EntityPlayer && !entityLiving.world.isRemote){
-            ILifebloomCharge capability = entityLiving.getCapability(LIFEBLOOM_CHARGE, null);
+        if (entityLiving instanceof EntityPlayer && !entityLiving.world.isRemote) {
+            ILifebloomCharge lifebloomCharge = entityLiving.getCapability(LIFEBLOOM_CHARGE, null);
 
-            System.out.println("Lifebloom Charge: " + capability.getCharge());
+            if (lifebloomCharge != null) {
+                System.out.println("Lifebloom Charge: " + lifebloomCharge.getCharge());
+            }
         }
     }
 }

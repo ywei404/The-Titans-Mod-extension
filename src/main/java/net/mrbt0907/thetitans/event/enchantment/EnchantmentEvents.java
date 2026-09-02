@@ -1,7 +1,6 @@
 package net.mrbt0907.thetitans.event.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -33,7 +32,7 @@ public class EnchantmentEvents {
             if (totalLevel > 0) {
                 int interval = Math.max(1, 80 / totalLevel);
 
-                if (world.getWorldTime() % interval == 0 && !EntityUtils.isMaxHealth(entityLivingBase)) {
+                if (world.getWorldTime() % interval == 0 && EntityUtils.shouldHeal(entityLivingBase)) {
                     entityLivingBase.heal(1.0F);
                 }
             }
