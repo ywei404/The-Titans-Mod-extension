@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.mrbt0907.thetitans.registries.EnchantmentRegistry;
 import net.mrbt0907.thetitans.util.EnchantmentUtils;
+import net.mrbt0907.thetitans.util.EntityUtils;
 
 @Mod.EventBusSubscriber
 public class EnchantmentEvents {
@@ -32,7 +33,7 @@ public class EnchantmentEvents {
             if (totalLevel > 0) {
                 int interval = Math.max(1, 80 / totalLevel);
 
-                if (world.getWorldTime() % interval == 0) {
+                if (world.getWorldTime() % interval == 0 && !EntityUtils.isMaxHealth(entityLivingBase)) {
                     entityLivingBase.heal(1.0F);
                 }
             }

@@ -37,7 +37,6 @@ public class OnArmorTickImplements {
             EnchantmentData.of(Enchantments.UNBREAKING, 3).addEnchantment(itemStack);
             EnchantmentData.of(Enchantments.MENDING, 1).addEnchantment(itemStack);
             EnchantmentData.of(Enchantments.THORNS, 3).addEnchantment(itemStack);
-            EnchantmentData.of(EnchantmentRegistry.HEALING, 3).addEnchantment(itemStack);
             EnchantmentData.of(EnchantmentRegistry.HEALING, 4).addEnchantment(itemStack);
         };
 

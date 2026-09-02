@@ -49,4 +49,12 @@ public class EntityUtils {
     public static EntityEquipmentSlot[] getArmorEquipmentSlots() {
         return new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
     }
+
+    public static boolean isMaxHealth(EntityLivingBase entity){
+        if (entity == null){
+            return false;
+        }
+
+        return entity.getHealth() >= entity.getMaxHealth();
+    }
 }

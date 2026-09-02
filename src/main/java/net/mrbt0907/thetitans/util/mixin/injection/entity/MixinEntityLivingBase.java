@@ -1,11 +1,11 @@
 package net.mrbt0907.thetitans.util.mixin.injection.entity;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
+import net.mrbt0907.thetitans.event.hook.BaseEventHooks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(EntityLivingBase.class)
 public class MixinEntityLivingBase {
@@ -13,15 +13,27 @@ public class MixinEntityLivingBase {
         System.out.println(">>> MixinEntityLivingBase CLASS LOADED <<<");
     }
 
-    @Inject(
+    @ModifyArg(
             method = "setHealth",
-            at = @At("HEAD")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/math/MathHelper;clamp(FFF)F"
+            ),
+            index = 0
     )
-    private void beforeSetHealth(float health, CallbackInfo ci) {
+    private float modifyHealth(float health) {
         EntityLivingBase entity = (EntityLivingBase) (Object) this;
+        World world = entity.world;
 
-        if (entity instanceof EntityPlayer && !entity.world.isRemote){
-            System.out.println("setHealth called: " + health);
+        boolean ready = world.loadedEntityList.contains(entity);
+        boolean server = !world.isRemote;
+
+        if (!ready || !server) {
+            return health;
         }
+
+        health = BaseEventHooks.onLivingModifyHealth(entity, entity.getHealth(), health);
+
+        return health;
     }
 }
