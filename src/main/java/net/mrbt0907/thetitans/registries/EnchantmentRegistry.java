@@ -17,6 +17,11 @@ public class EnchantmentRegistry {
             .setMinEnchantabilityFunction(level -> 5 + 15 * (level - 1))
             .setMaxEnchantabilityFunction(level -> 15 + 15 * (level - 1));
 
+    public static final Enchantment VIBRANT = new BaseEnchantment("vibrant", Enchantment.Rarity.VERY_RARE, EnumEnchantmentType.ARMOR, EntityUtils.getArmorEquipmentSlots())
+            .setMinLevel(1).setMaxLevel(3)
+            .setMinEnchantabilityFunction(level -> 10 + 15 * (level - 1))
+            .setMaxEnchantabilityFunction(level -> 20 + 15 * (level - 1));
+
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Enchantment> event) {
         TheTitans.debug("Registering enchantments...");

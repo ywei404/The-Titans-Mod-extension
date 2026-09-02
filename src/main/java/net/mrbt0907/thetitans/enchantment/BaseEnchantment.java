@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.mrbt0907.thetitans.TheTitans;
 import net.mrbt0907.thetitans.enchantment.functions.CanApplyTogether;
 
 import java.util.HashMap;
@@ -20,8 +21,8 @@ public class BaseEnchantment extends Enchantment {
     private Function<Integer, Integer> maxEnchantabilityFunction;
     public BaseEnchantment(String name, Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot[] slots) {
         super(rarityIn, typeIn, slots);
-        this.setName(name);
-        this.setRegistryName(name);
+        this.setName(TheTitans.NAMESPACE + name);
+        this.setRegistryName(TheTitans.NAMESPACE + name);
         MOD_ENCHANTMENT_MAP.put(this.getName(), this);
     }
 

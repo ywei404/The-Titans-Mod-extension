@@ -31,6 +31,7 @@ public class TheTitans
 {
 	public static final String MODNAME = "The Titans Mod";
 	public static final String MODID = "thetitans";
+	public static final String NAMESPACE = MODID + ":";
 	public static final String VERSION = "0.6.3-indev";
 	public static final String CLIENT = "net.mrbt0907.thetitans.ClientProxy";
 	public static final String SERVER = "net.mrbt0907.thetitans.CommonProxy";

@@ -25,10 +25,11 @@ public class MixinEntityLivingBase {
         EntityLivingBase entity = (EntityLivingBase) (Object) this;
         World world = entity.world;
 
-        boolean ready = world.loadedEntityList.contains(entity);
-        boolean server = !world.isRemote;
+        if (world.isRemote){
+            return health;
+        }
 
-        if (!ready || !server) {
+        if (!world.loadedEntityList.contains(entity)){
             return health;
         }
 

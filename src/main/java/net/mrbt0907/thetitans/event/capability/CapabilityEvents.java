@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.mrbt0907.thetitans.capability.entity.ILifebloomCharge;
+import net.mrbt0907.thetitans.event.hook.BaseEventHooks;
 import net.mrbt0907.thetitans.registries.AttributeRegistry;
 import net.mrbt0907.thetitans.registries.CapabilityRegistry;
 import net.mrbt0907.thetitans.util.DamageSources;
@@ -68,6 +69,7 @@ public class CapabilityEvents {
             float charge = lifebloomCharge.getCharge();
 
             if (charge > 0.0F) {
+                charge = BaseEventHooks.onLivingConsumeLifebloomCharge((EntityLivingBase) sourceEntity, targetEntity, charge);
                 lifebloomCharge.consumeCharge(charge);
                 targetEntity.attackEntityFrom(EntityUtils.generateGlobalDamageSource(DamageSources.LIFEBLOOM_DAMAGE_NAME, sourceEntity, null), charge);
             }
